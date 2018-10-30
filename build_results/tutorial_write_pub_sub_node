@@ -1,0 +1,61 @@
+viki@ubuntu:~/catkin_ws$ catkin_make
+Base path: /home/viki/catkin_ws
+Source space: /home/viki/catkin_ws/src
+Build space: /home/viki/catkin_ws/build
+Devel space: /home/viki/catkin_ws/devel
+Install space: /home/viki/catkin_ws/install
+####
+#### Running command: "make cmake_check_build_system" in "/home/viki/catkin_ws/build"
+####
+-- Using CATKIN_DEVEL_PREFIX: /home/viki/catkin_ws/devel
+-- Using CMAKE_PREFIX_PATH: /opt/ros/kinetic
+-- This workspace overlays: /opt/ros/kinetic
+-- Using PYTHON_EXECUTABLE: /usr/bin/python
+-- Using Debian Python package layout
+-- Using empy: /usr/bin/empy
+-- Using CATKIN_ENABLE_TESTING: ON
+-- Call enable_testing()
+-- Using CATKIN_TEST_RESULTS_DIR: /home/viki/catkin_ws/build/test_results
+-- Found gtest sources under '/usr/src/gtest': gtests will be built
+-- Using Python nosetests: /usr/bin/nosetests-2.7
+-- catkin 0.7.6
+-- BUILD_SHARED_LIBS is on
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- ~~  traversing 1 packages in topological order:
+-- ~~  - beginner_tutorials
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- +++ processing catkin package: 'beginner_tutorials'
+-- ==> add_subdirectory(beginner_tutorials)
+-- Configuring done
+CMake Warning (dev) at beginner_tutorials/CMakeLists.txt:207 (add_dependencies):
+  Policy CMP0046 is not set: Error on non-existent dependency in
+  add_dependencies.  Run "cmake --help-policy CMP0046" for policy details.
+  Use the cmake_policy command to set the policy and suppress this warning.
+
+  The dependency target "beginner_tutorials_generate_messages_cpp" of target
+  "listener" does not exist.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at beginner_tutorials/CMakeLists.txt:203 (add_dependencies):
+  Policy CMP0046 is not set: Error on non-existent dependency in
+  add_dependencies.  Run "cmake --help-policy CMP0046" for policy details.
+  Use the cmake_policy command to set the policy and suppress this warning.
+
+  The dependency target "beginner_tutorials_generate_messages_cpp" of target
+  "talker" does not exist.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Generating done
+-- Build files have been written to: /home/viki/catkin_ws/build
+####
+#### Running command: "make -j2 -l2" in "/home/viki/catkin_ws/build"
+####
+Scanning dependencies of target talker
+Scanning dependencies of target listener
+[ 25%] Building CXX object beginner_tutorials/CMakeFiles/listener.dir/src/listener.cpp.o
+[ 50%] Building CXX object beginner_tutorials/CMakeFiles/talker.dir/src/talker.cpp.o
+[ 75%] Linking CXX executable /home/viki/catkin_ws/devel/lib/beginner_tutorials/talker
+[ 75%] Built target talker
+[100%] Linking CXX executable /home/viki/catkin_ws/devel/lib/beginner_tutorials/listener
+[100%] Built target listener
+
