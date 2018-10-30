@@ -1,13 +1,49 @@
+/**
+ *  MIT License
+ *
+ *  Copyright (c) 2018 Rishabh Choudhary
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without
+ *  limitation the rights to use, copy, modify, merge, publish, distribute,
+ *  sublicense, and/or sell copies of the Software, and to permit persons to
+ *  whom the Software is furnished to do so, subject to the following
+ *  conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ *  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ *  DEALINGS IN THE SOFTWARE.
+ *
+ *  @file    talker.cpp
+ *  @author  Rishabh Choudhary
+ *  @copyright MIT License
+ *
+ *  @brief  ENPM808X :Assignment to implement ROS publisher and subscriber nodes
+ *
+ *  @section DESCRIPTION
+ *
+ *  This program is a part of the beginner tutorials in ROS
+ *  It defines the publisher (talker)
+ *
+ */
+
+#include <sstream>
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 
-#include <sstream>
 
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
    * any ROS arguments and name remapping that were provided at the command line.
@@ -44,7 +80,7 @@ int main(int argc, char **argv)
    * than we can send them, the number here specifies how many messages to
    * buffer up before throwing some away.
    */
-  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+  auto chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
 
   ros::Rate loop_rate(10);
 
@@ -52,9 +88,8 @@ int main(int argc, char **argv)
    * A count of how many messages we have sent. This is used to create
    * a unique string for each message.
    */
-  int count = 0;
-  while (ros::ok())
-  {
+  auto count = 0;
+  while (ros::ok()) {
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
