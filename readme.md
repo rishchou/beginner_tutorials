@@ -91,4 +91,3 @@ The output of rqt_console with info and warn logger level messages has been adde
 ```
 rqt_console
 ```
-To 
