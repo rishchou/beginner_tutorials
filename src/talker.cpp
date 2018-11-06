@@ -77,6 +77,7 @@ int main(int argc, char **argv) {
     ROS_DEBUG_STREAM("Input frequency is " << freq);
     if (freq <=0) {
         ROS_ERROR_STREAM("Invalid publisher frequency");
+        freq = 10;
     } 
   } else {
     ROS_WARN_STREAM("No input frequency, using default publisher frequency");
@@ -112,7 +113,7 @@ int main(int argc, char **argv) {
   
 
   ros::Rate loop_rate(freq);
-  ROS_INFO_STREAM("Setting publisher frequency");
+  ROS_DEBUG_STREAM("Setting publisher frequency");
 
   if(!ros::ok()) {
     ROS_FATAL_STREAM("ROS node is not running");
@@ -134,7 +135,9 @@ int main(int argc, char **argv) {
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
-
+    if (freq < 2 ) {
+      ROS_WARN_STREAM("Publisher frequency too low");
+    } 
     /**
      * The publish() function is how you send messages. The parameter
      * is the message object. The type of this object must agree with the type
