@@ -50,7 +50,7 @@ std::string strMsg = "Custom base string";
 bool changeString(beginner_tutorials::change_string::Request &req,
 		beginner_tutorials::change_string::Response &res) {
     strMsg = req.input;
-    res.output  = req.input + ": modified";
+    res.output = strMsg;
     ROS_INFO_STREAM("Modified the base output string message");
     return true;
 }
@@ -70,6 +70,17 @@ int main(int argc, char **argv) {
    * part of the ROS system.
    */
   ros::init(argc, argv, "talker");
+
+  int freq = 10;
+  if (argc == 2) {
+    freq = atoi(argv[1]);
+    ROS_DEBUG_STREAM("Input frequency is " << freq);
+    if (freq <=0) {
+        ROS_ERROR_STREAM("Invalid publisher frequency");
+    } 
+  } else {
+    ROS_WARN_STREAM("No input frequency, using default publisher frequency");
+  }
 
   /**
    * NodeHandle is the main access point to communications with the ROS system.
@@ -98,8 +109,15 @@ int main(int argc, char **argv) {
   auto chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
 
   auto server = n.advertiseService("change_string", changeString);
-  ros::Rate loop_rate(10);
+  
 
+  ros::Rate loop_rate(freq);
+  ROS_INFO_STREAM("Setting publisher frequency");
+
+  if(!ros::ok()) {
+    ROS_FATAL_STREAM("ROS node is not running");
+  }   
+   
   /**
    * A count of how many messages we have sent. This is used to create
    * a unique string for each message.
