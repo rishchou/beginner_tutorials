@@ -46,12 +46,19 @@
  */
 
 std::string strMsg = "Custom base string";
-
+ /**
+  * @brief      changeString
+  *
+  * @param      req     request message 
+  * @param      res     response messsge
+  *
+  * @return     boolean value after successful callback
+  */
 bool changeString(beginner_tutorials::change_string::Request &req,
 		beginner_tutorials::change_string::Response &res) {
-    strMsg = req.input;
-    res.output = strMsg;
-    ROS_INFO_STREAM("Modified the base output string message");
+    strMsg = req.input;          
+    res.output = strMsg;             // modify the output string
+    ROS_INFO_STREAM("Modified the base output string message");   // info logger level message
     return true;
 }
 
@@ -71,15 +78,18 @@ int main(int argc, char **argv) {
    */
   ros::init(argc, argv, "talker");
 
-  int freq = 10;
+  int freq = 10;         // set default frequency
+  /*
+   * Check if frequency is passed as argument
+   */
   if (argc == 2) {
     freq = atoi(argv[1]);
-    ROS_DEBUG_STREAM("Input frequency is " << freq);
+    ROS_DEBUG_STREAM("Input frequency is " << freq);       // debug logger level message
     if (freq <=0) {
-        ROS_ERROR_STREAM("Invalid publisher frequency");
-        freq = 10;
+        ROS_ERROR_STREAM("Invalid publisher frequency");   // error message       
     } 
   } else {
+    /* Warning logger message if freq is not passed as argument */
     ROS_WARN_STREAM("No input frequency, using default publisher frequency");
   }
 
@@ -108,13 +118,16 @@ int main(int argc, char **argv) {
    * buffer up before throwing some away.
    */
   auto chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
-
+ 
+  /* Advertise change_string service to associate the callback and allow other nodes to access the service */
   auto server = n.advertiseService("change_string", changeString);
   
-
   ros::Rate loop_rate(freq);
   ROS_DEBUG_STREAM("Setting publisher frequency");
-
+ 
+  /*
+   * If ros is not running, stream fatal log
+   */
   if(!ros::ok()) {
     ROS_FATAL_STREAM("ROS node is not running");
   }   
@@ -135,6 +148,9 @@ int main(int argc, char **argv) {
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
+    /* 
+     * If specified frequency is less than 2Hz, display wanring message
+     */
     if (freq < 2 ) {
       ROS_WARN_STREAM("Publisher frequency too low");
     } 
