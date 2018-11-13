@@ -37,7 +37,7 @@
 
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-
+#include "beginner_tutorials/change_string.h"
 /**
  * This tutorial demonstrates simple receipt of messages over the ROS system.
  */

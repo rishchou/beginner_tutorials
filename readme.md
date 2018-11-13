@@ -28,12 +28,16 @@ For installing catkin, follow: http://wiki.ros.org/catkin#Installing_catkin (Usu
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/
 catkin_make
-source devel/setup.bash
+source ~/catkin_ws/devel/setup.bash
 cd src/
 git clone --recursive https://github.com/rishchou/beginner_tutorials.git
-cd ..
+cd beginner_tutorials
+git checkout Week10_HW
+cd ~/catkin_ws/
 catkin_make
 ```
+
+NOTE: For running command from each new terminal, source the devel/setup.bash file in the terminal before executing any ros command.
 
 ## Running the project
 
@@ -43,21 +47,49 @@ To run the publisher and subscriber model, follow the given steps:
 ```
 roscore
 ```
-
-2. In your catkin workspace, source your ws setup.bash file before running the demo as shown below:
+2. To run the publisher node, use rosrun as given below in a new terminal
 ```
-cd ~/catkin_ws
-source ./devel/setup.bash 
-```
-
-3. To run the publisher node, use rosrun as given below
-```
+source ~/catkin_ws/devel/setup.bash
 rosrun beginner_tutorials talker
 ```
 
-4. To run Subscriber node, use rosrun as given below
+3. To run Subscriber node, use rosrun as given below in a new terminal
 ```
+source ~/catkin_ws/devel/setup.bash
 rosrun beginner_tutorials listener
 ```
 
+## Run the demo using launch file
+After building the project using above instructions
+To run the talker and listener nodes using launch file, follow the given steps.
+```
+source ~/catkin_ws/devel/setup.bash
+roslaunch beginner_tutorials beginner_tutorial.launch
+```
+
+Optionally, we can specify the publisher frequency along with launch file as input argument to change the publisher frequency.
+```
+roslaunch beginner_tutorials beginner_tutorial.launch frequency:=20
+```
+
+This will start roscore and talker and listener nodes in two terminals. 
  
+## Running the service
+
+The change_string service has been added to the project which modifies the base string published by the talker.
+After building the project using the build instructions above and launching the talker-listener nodes using roslaunch, you can see the available services for the nodes using the following command:
+```
+source ~/catkin_ws/devel/setup.bash
+roservice list
+```
+Here, we are giving demo for the /change_string service added for the talker node. To run the service, enter the following command:
+```
+rosservice call /change_string "New string"
+```
+This will update the base string published by the talker to "New string"
+
+## Checking the log messages
+The output of rqt_console with info and warn logger level messages has been added in the results directory of the repository. To run the GUI for checking logs run
+```
+rqt_console
+```

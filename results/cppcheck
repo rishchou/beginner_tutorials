@@ -1,5 +1,6 @@
-viki@ubuntu:~/catkin_ws/src/beginner_tutorials$ cppcheck --enable=all --std=c++11 -I include/ --suppress=missingIncludeSystem $( find . -name *.cpp | grep -vE -e "^./build/" -e "^./vendor/" )
+cppcheck --enable=all --std=c++11 -I include/ --suppress=missingIncludeSystem $( find . -name *.cpp | grep -vE -e "^./build/" -e "^./vendor/" )
 Checking src/listener.cpp...
-1/2 files checked 46% done
+1/2 files checked 38% done
 Checking src/talker.cpp...
 2/2 files checked 100% done
+
