@@ -39,8 +39,9 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "beginner_tutorials/change_string.h"
+#include <tf/transform_broadcaster.h>
 
-
+#define PI 3.14
 /**
  * Initialize the base input string
  */
@@ -78,6 +79,10 @@ int main(int argc, char **argv) {
    * part of the ROS system.
    */
   ros::init(argc, argv, "talker");
+
+  /* Initialized the transform */
+  static tf::TransformBroadcaster br;
+  tf::Transform transform;
 
   int freq = 10;         // set default frequency
   /*
@@ -164,7 +169,12 @@ int main(int argc, char **argv) {
      * in the constructor above.
      */
     chatter_pub.publish(msg);
-
+    /* set transform */
+    transform.setOrigin( tf::Vector3(1.0, 2.0, 3.0));
+    tf::Quaternion q;
+    q.setRPY(PI, PI/2, 2);
+    transform.setRotation(q);
+    br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
     ros::spinOnce();
 
     loop_rate.sleep();
