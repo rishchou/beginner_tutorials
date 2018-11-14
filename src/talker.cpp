@@ -46,7 +46,10 @@
  * Initialize the base input string
  */
 
-extern std::string strMsg = "Custom base string";
+struct messageString {
+  std::string outputMessage;
+} outputString;
+//extern std::string strMsg = "Custom base string";
  /**
   * @brief      changeString
   *
@@ -57,8 +60,8 @@ extern std::string strMsg = "Custom base string";
   */
 bool changeString(beginner_tutorials::change_string::Request &req,
         beginner_tutorials::change_string::Response &res) {
-    strMsg = req.input;
-    res.output = strMsg;             // modify the output string
+    outputString.outputMessage = req.input;
+    res.output = outputString.outputMessage;      // modify the output string
     /* Info logger level message */
     ROS_INFO_STREAM("Modified the base output string message");
     return true;
@@ -80,6 +83,7 @@ int main(int argc, char **argv) {
    */
   ros::init(argc, argv, "talker");
 
+  outputString.outputMessage = "Default published message";
   /* Initialized the transform */
   static tf::TransformBroadcaster br;
   tf::Transform transform;
@@ -152,7 +156,7 @@ int main(int argc, char **argv) {
     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << strMsg << count;
+    ss << outputString.outputMessage << count;
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
