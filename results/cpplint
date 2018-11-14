@@ -1,7 +1,9 @@
-viki@ubuntu:~/catkin_ws$ cpplint $( find . -name \*.hpp -or -name \*.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e "^./docs/" -e "^./results" )
-./src/beginner_tutorials/src/talker.cpp:57:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::change_string::Request &req  [runtime/references] [2]
-./src/beginner_tutorials/src/talker.cpp:58:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::change_string::Response &res  [runtime/references] [2]
-Done processing ./src/beginner_tutorials/src/talker.cpp
-Done processing ./src/beginner_tutorials/src/listener.cpp
+viki@ubuntu:~/catkin_ws1/src/beginner_tutorials$ cpplint $( find . -name \*.hpp -or -name \*.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e "^./docs/" -e "^./results" )
+./src/talker.cpp:61:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::change_string::Request &req  [runtime/references] [2]
+./src/talker.cpp:62:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::change_string::Response &res  [runtime/references] [2]
+Done processing ./src/talker.cpp
+Done processing ./src/listener.cpp
+Done processing ./test/testTalker.cpp
 Total errors found: 2
+viki@ubuntu:~/catkin_ws1/src/beginner_tutorials$ 
 

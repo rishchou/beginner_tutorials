@@ -35,11 +35,11 @@
  *
  */
 
+#include <tf/transform_broadcaster.h>
 #include <sstream>
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "beginner_tutorials/change_string.h"
-#include <tf/transform_broadcaster.h>
 
 #define PI 3.14
 
@@ -176,14 +176,17 @@ int main(int argc, char **argv) {
      */
     chatter_pub.publish(msg);
     /* set the translation and rotation for transform object */
-    transform.setOrigin( tf::Vector3(1.0, 2.0, 3.0));
+    transform.setOrigin(tf::Vector3(1.0, 2.0, 3.0));
     tf::Quaternion q;
 
     /* set pitch, yaw and roll for the quaternion */
     q.setRPY(PI, PI/2, 2);
     transform.setRotation(q);
-    /* Broadcast the transform with world and talk frames as parent and child respectively */
-    br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
+    /* Broadcast the transform with world and talk frames
+     * as parent and child respectively 
+     */
+    br.sendTransform(tf::StampedTransform(transform,
+                         ros::Time::now(), "world", "talk"));
     ros::spinOnce();
 
     loop_rate.sleep();
