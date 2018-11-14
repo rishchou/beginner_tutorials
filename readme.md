@@ -144,14 +144,14 @@ rosrun tf view_frames
 ```
 This will generate a pdf file which shows the tf frame being transmitted from parent to child frame. The pdf output is also added to results directory of the repository
 
-##Running ROSTEST
+## Running ROSTEST
 
 Unit test cases for the project have been written using gtest and rostest. To run the tests using catkin go to to catkin workspace root directory and issue the following command:
 ```
 catkin_make run_tests_beginner_tutorials
 ```
 
-This will run the test suite and outout the result on the terminal as follows:
+This will run the test suite and output the result on the terminal as follows:
 ```
 testtestTalker ... ok
 
@@ -176,7 +176,7 @@ roslaunch beginner_tutorials beginner_tutorials.launch record:=true
 ```
 This command will record the data published on the /chatter topic by node /talker and create a listener.bag file in results directory.
 
-##Examining and playing the recorded bag file
+## Examining and playing the recorded bag file
 To examine the recorded rosbag file, run the following command:
 ```
 rosbag info results/listener.bag
@@ -202,8 +202,9 @@ topics:      /chatter      162 msgs    : std_msgs/String
 
 The above output verifies that the /chatter topic messages were collected by the rosbag.
 
-To play the rosbag, run only listener node in one window as shown below:
+To play the rosbag, run roscore in one window and only listener(not talker) node in other window as shown below:
 ```
+roscore
 rosrun beginner_tutorials listener
 ```
 Now run rosbag play command to replay the topic messages in other terminal as shown below:
