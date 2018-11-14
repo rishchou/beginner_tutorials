@@ -38,8 +38,16 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "beginner_tutorials/change_string.h"
+
 /**
  * This tutorial demonstrates simple receipt of messages over the ROS system.
+ */
+
+/**
+ *   @brief  callback function to display the message in the subscribed topic
+ *
+ *   @param  pointer to a msg of type std_msgs::String
+ *   @return none
  */
 void chatterCallback(const std_msgs::String::ConstPtr& msg) {
   ROS_INFO("I heard: [%s]", msg->data.c_str());

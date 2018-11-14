@@ -42,16 +42,16 @@
 #include <tf/transform_broadcaster.h>
 
 #define PI 3.14
-/**
- * Initialize the base input string
- */
 
+/**
+ * Strcuture to store output String
+ */
 struct messageString {
   std::string outputMessage;
 } outputString;
-//extern std::string strMsg = "Custom base string";
+
  /**
-  * @brief      changeString
+  * @brief      callback function to change the output string
   *
   * @param      req     request message
   * @param      res     response messsge
@@ -59,7 +59,7 @@ struct messageString {
   * @return     boolean value after successful callback
   */
 bool changeString(beginner_tutorials::change_string::Request &req,
-        beginner_tutorials::change_string::Response &res) {
+    beginner_tutorials::change_string::Response &res) {
     outputString.outputMessage = req.input;
     res.output = outputString.outputMessage;      // modify the output string
     /* Info logger level message */
@@ -83,8 +83,10 @@ int main(int argc, char **argv) {
    */
   ros::init(argc, argv, "talker");
 
+  /* Initialize default published message */
   outputString.outputMessage = "Default published message";
-  /* Initialized the transform */
+
+  /* Initialize the transform broadcaster object and transform object*/
   static tf::TransformBroadcaster br;
   tf::Transform transform;
 
@@ -173,11 +175,14 @@ int main(int argc, char **argv) {
      * in the constructor above.
      */
     chatter_pub.publish(msg);
-    /* set transform */
+    /* set the translation and rotation for transform object */
     transform.setOrigin( tf::Vector3(1.0, 2.0, 3.0));
     tf::Quaternion q;
+
+    /* set pitch, yaw and roll for the quaternion */
     q.setRPY(PI, PI/2, 2);
     transform.setRotation(q);
+    /* Broadcast the transform with world and talk frames as parent and child respectively */
     br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
     ros::spinOnce();
 
